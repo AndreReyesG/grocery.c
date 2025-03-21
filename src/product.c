@@ -44,8 +44,14 @@ void show_products(FILE *out, node_t *p) {
   node_t *aux = p;
 
   while ( aux != NULL ) {
-    fprintf(out, "%s, ", p->product.name);
+    fprintf(out, "---\n");
+    fprintf(out, "%s\n", p->product.name);
+    fprintf(out, "%s\n", p->product.category);
+    fprintf(out, "%d\n", p->product.code);
+    fprintf(out, "%d\n", p->product.stock);
+    fprintf(out, "%.2lf\n", p->product.purchase_price);
+    fprintf(out, "%.2lf\n", p->product.sale_price);
+    fprintf(out, "%ld\n", p->product.expiration_date);
     aux = aux->next;
   }
-  fprintf(out, "\n");
 }
