@@ -15,7 +15,7 @@ long fsize(FILE *f) {
   return last;
 }
 
-void test(void) {
+void test_show_products(void) {
   // inicializamos la lista
   node_t *p = NULL;
 
@@ -52,7 +52,7 @@ void test(void) {
     perror("Error deleting file");
   }
 
-  TEST_ASSERT_EQUAL_STRING("test, \n", buffer);
+  TEST_ASSERT_EQUAL_STRING("---\nstrudels\npan y pastelillos\n61945\n1\n183.13\n240.00\n20250322\n", buffer);
   free(buffer);
 
   free_products(&p);
@@ -61,6 +61,6 @@ void test(void) {
 
 int main(void) {
   UNITY_BEGIN();
-  RUN_TEST(test);
+  RUN_TEST(test_show_products);
   return UNITY_END();
 }
