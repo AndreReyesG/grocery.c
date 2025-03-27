@@ -1,12 +1,8 @@
+#include "product_test.h"
 #include "unity.h" 
-#include "product.h"
 #include <string.h>
 #include <stdlib.h>
 
-void setUp(void) {}
-void tearDown(void) {}
-
-// Retorna el tamaño (en bytes) de un archivo
 long fsize(FILE *f) {
   long actual = ftell(f);
   fseek(f, 0, SEEK_END);
@@ -15,8 +11,7 @@ long fsize(FILE *f) {
   return last;
 }
 
-void test_show_products(void) {
-  // inicializamos la lista
+void test_product(void) {
   node_t *p = NULL;
 
   // le agremos elementos
@@ -57,10 +52,4 @@ void test_show_products(void) {
 
   free_products(&p);
   TEST_ASSERT_NULL(p);
-}
-
-int main(void) {
-  UNITY_BEGIN();
-  RUN_TEST(test_show_products);
-  return UNITY_END();
 }
