@@ -9,3 +9,4 @@ typedef struct Category {
 
 void add_category(category_t **p);
 void free_category(category_t **p);
+int del_category(category_t **p, int id);

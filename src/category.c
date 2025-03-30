@@ -28,3 +28,23 @@ void free_category(category_t **p) {
     *p = next;
   }
 }
+
+int del_category(category_t **p, int id) {
+  category_t *aux = *p;
+  category_t *prev = NULL;
+  while ( (aux != NULL) && (aux->id != id) ) {
+    prev = aux;
+    aux = aux->next;
+  }
+
+  if ( aux != NULL ) {
+    if ( prev != NULL ) {
+      prev->next = aux->next;
+    } else {
+      *p = aux->next;
+    }
+    free(aux);
+    return 0;
+  }
+  return -1;
+}
