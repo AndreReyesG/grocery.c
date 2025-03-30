@@ -1,5 +1,5 @@
 #pragma once
-
 #include "category.h"
 
+void test_add_category(void);
 void test_category(void);
