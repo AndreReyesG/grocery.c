@@ -9,9 +9,14 @@ void add_category(category_t **p) {
   if (*p == NULL) {
     *p = new;
   } else {
+    int id = 2;
     category_t *aux = *p;
 
-    while (aux->next != NULL) { aux = aux->next; }
+    while (aux->next != NULL) {
+      ++id;
+      aux = aux->next;
+    }
+    new->id = id;
     aux->next = new;
   }
 }
