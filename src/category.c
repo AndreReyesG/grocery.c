@@ -20,3 +20,11 @@ void add_category(category_t **p) {
     aux->next = new;
   }
 }
+
+void free_category(category_t **p) {
+  while ( *p != NULL ) {
+    category_t *next = (*p)->next;
+    free(*p);
+    *p = next;
+  }
+}

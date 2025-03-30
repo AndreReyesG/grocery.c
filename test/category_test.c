@@ -1,6 +1,10 @@
 #include "category_test.h"
 #include "unity.h" 
 
+void test_category(void) {
+  test_add_category();
+}
+
 void test_add_category(void) {
   category_t *p = NULL;
   add_category(&p);
@@ -16,8 +20,6 @@ void test_add_category(void) {
   TEST_ASSERT_NOT_NULL(p->next->next);
   TEST_ASSERT_EQUAL_INT(3, p->next->next->id);
   TEST_ASSERT_NULL(p->next->next->next);
-}
 
-void test_category(void) {
-  test_add_category();
+  free_category(&p);
 }

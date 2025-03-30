@@ -8,3 +8,4 @@ typedef struct Category {
 } category_t;
 
 void add_category(category_t **p);
+void free_category(category_t **p);
