@@ -12,5 +12,6 @@ int main(void) {
   RUN_TEST(test_add_category);
   RUN_TEST(test_del_category);
   RUN_TEST(test_print_categories);
+  RUN_TEST(test_add_and_del_categories);
   return UNITY_END();
 }
