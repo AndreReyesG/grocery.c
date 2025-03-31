@@ -22,11 +22,6 @@ void test_product(void) {
 
   char *buffer = get_str_from_file(filename);
 
-  // eliminar el archivo temporal
-  if ( remove(filename) == -1 ) {
-    perror("Error deleting file");
-  }
-
   TEST_ASSERT_EQUAL_STRING("---\nstrudels\n61945\n1\n183.13\n240.00\n20250322\n", buffer);
   free(buffer);
 

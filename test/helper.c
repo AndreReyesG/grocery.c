@@ -15,5 +15,8 @@ char *get_str_from_file(const char *pathname) {
   char *str = (char*)calloc(file_size + 1, sizeof(char));
   fread(str, sizeof(char), file_size, f);
   fclose(f);
+  if ( remove(pathname) == -1 ) {
+    perror("Error deleting file");
+  }
   return str;
 }
