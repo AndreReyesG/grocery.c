@@ -43,17 +43,21 @@ void test_print_categories(void) {
   add_category(&p);
   add_category(&p);
 
-  FILE *file;
-  const char* filename = "test.txt";
+  const char *tmpfile = "tmpfile.dat";
+  print_categories_h(tmpfile, p);
 
-  file = fopen(filename, "w+b");
-  print_categories(file, p);
-  fclose(file);
+  char *got = get_str_from_file(tmpfile);
 
-  char *got = get_str_from_file(filename);
+  remove(tmpfile);
 
   TEST_ASSERT_EQUAL_STRING("1, 2, 3, \n", got);
 
   free(got);
   free_category(&p);
+}
+
+void print_categories_h(const char *pathname, category_t *p) {
+  FILE* f = fopen(pathname, "w+b");
+  print_categories(f, p);
+  fclose(f);
 }
