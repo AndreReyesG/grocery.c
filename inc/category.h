@@ -8,7 +8,13 @@ typedef struct Category {
   int id;
 } category_t;
 
-void add_category(category_t **p);
-void free_category(category_t **p);
-int del_category(category_t **p, int id);
-void print_categories(FILE *out, category_t *p);
+typedef struct StockList {
+  category_t *head;
+  int count_id;
+} stock_list_t;
+
+stock_list_t *new_stock_list(void);
+void add_category(stock_list_t **p);
+void free_category(stock_list_t **p);
+int del_category(stock_list_t **p, int id);
+void print_categories(FILE *out, stock_list_t *p);

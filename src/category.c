@@ -1,16 +1,23 @@
 #include "category.h"
 #include <stdlib.h>
 
-void add_category(category_t **p) {
+stock_list_t *new_stock_list(void) {
+  stock_list_t *new = (stock_list_t*)malloc(sizeof(stock_list_t));
+  new->head = NULL;
+  new->count_id = 0;
+  return new;
+}
+
+void add_category(stock_list_t **p) {
   category_t *new = (category_t*)malloc(sizeof(category_t));
   new->id = 1;
   new->next = NULL;
 
-  if (*p == NULL) {
-    *p = new;
+  if ( (*p)->head == NULL ) {
+    (*p)->head = new;
   } else {
     int id = 2;
-    category_t *aux = *p;
+    category_t *aux = (*p)->head;
 
     while (aux->next != NULL) {
       ++id;
@@ -21,16 +28,16 @@ void add_category(category_t **p) {
   }
 }
 
-void free_category(category_t **p) {
-  while ( *p != NULL ) {
-    category_t *next = (*p)->next;
-    free(*p);
-    *p = next;
+void free_category(stock_list_t **p) {
+  while ( (*p)->head != NULL ) {
+    category_t *next = (*p)->head->next;
+    free( (*p)->head );
+    (*p)->head = next;
   }
 }
 
-int del_category(category_t **p, int id) {
-  category_t *aux = *p;
+int del_category(stock_list_t **p, int id) {
+  category_t *aux = (*p)->head;
   category_t *prev = NULL;
   while ( (aux != NULL) && (aux->id != id) ) {
     prev = aux;
@@ -41,7 +48,7 @@ int del_category(category_t **p, int id) {
     if ( prev != NULL ) {
       prev->next = aux->next;
     } else {
-      *p = aux->next;
+      (*p)->head = aux->next;
     }
     free(aux);
     return 0;
@@ -49,8 +56,8 @@ int del_category(category_t **p, int id) {
   return -1;
 }
 
-void print_categories(FILE *out, category_t *p) {
-  category_t *aux = p;
+void print_categories(FILE *out, stock_list_t *p) {
+  category_t *aux = p->head;
   while ( aux != NULL ) {
     fprintf(out, "%d, ", aux->id);
     aux = aux->next;
