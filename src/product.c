@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-product_t new_product(char* name, char* category, int code, int stock, double pprice, double sprice, long expdate) {
+product_t new_product(char* name, int code, int stock, double pprice, double sprice, long expdate) {
   product_t new = {
     .code = code,
     .stock = stock,
@@ -11,7 +11,6 @@ product_t new_product(char* name, char* category, int code, int stock, double pp
     .expiration_date = expdate,
   };
   strcpy(new.name, name);
-  strcpy(new.category, category);
   return new;
 }
 
@@ -46,7 +45,6 @@ void show_products(FILE *out, node_t *p) {
   while ( aux != NULL ) {
     fprintf(out, "---\n");
     fprintf(out, "%s\n", p->product.name);
-    fprintf(out, "%s\n", p->product.category);
     fprintf(out, "%d\n", p->product.code);
     fprintf(out, "%d\n", p->product.stock);
     fprintf(out, "%.2lf\n", p->product.purchase_price);
