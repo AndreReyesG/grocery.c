@@ -20,20 +20,7 @@ void test_product(void) {
   show_products(file, p);
   fclose(file);
 
-  // abrir el archivo temporal con permiso de escribir 
-  file = fopen(filename, "r+b");
-  char *buffer = (char*)malloc(sizeof(char) * fsize(file));
-  char *aux = (char*)malloc(sizeof(char));
-  fread(aux, sizeof(char), 1, file);
-
-  // TODO: Leer el contenido del archivo de forma más eficiente
-  while ( !feof(file) ) {
-    strcat(buffer, aux);
-    fread(aux, sizeof(char), 1, file);
-  }
-
-  free(aux);
-  fclose(file);
+  char *buffer = get_str_from_file(filename);
 
   // eliminar el archivo temporal
   if ( remove(filename) == -1 ) {
