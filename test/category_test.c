@@ -5,26 +5,29 @@
 #include <stdlib.h>
 
 void test_add_category(void) {
-  category_t *p = NULL;
-  add_category(&p);
-  TEST_ASSERT_EQUAL_INT(1, p->id);
+  stock_list_t *stock_list = new_stock_list();
+  TEST_ASSERT_NULL(stock_list->head);
+  TEST_ASSERT_EQUAL_INT(0, stock_list->count_id);
 
-  add_category(&p);
-  TEST_ASSERT_NOT_NULL(p->next);
+  add_category(&stock_list);
+  TEST_ASSERT_EQUAL_INT(1, stock_list->head->id);
 
-  TEST_ASSERT_EQUAL_INT(2, p->next->id);
-  TEST_ASSERT_NULL(p->next->next);
+  add_category(&stock_list);
+  TEST_ASSERT_NOT_NULL(stock_list->head->next);
 
-  add_category(&p);
-  TEST_ASSERT_NOT_NULL(p->next->next);
-  TEST_ASSERT_EQUAL_INT(3, p->next->next->id);
-  TEST_ASSERT_NULL(p->next->next->next);
+  TEST_ASSERT_EQUAL_INT(2, stock_list->head->next->id);
+  TEST_ASSERT_NULL(stock_list->head->next->next);
 
-  free_category(&p);
+  add_category(&stock_list);
+  TEST_ASSERT_NOT_NULL(stock_list->head->next->next);
+  TEST_ASSERT_EQUAL_INT(3, stock_list->head->next->next->id);
+  TEST_ASSERT_NULL(stock_list->head->next->next->next);
+
+  free_category(&stock_list);
 }
 
 void test_del_category(void) {
-  category_t *p = NULL;
+  stock_list_t *p = new_stock_list();
   add_category(&p);
   int del;
 
@@ -38,7 +41,7 @@ void test_del_category(void) {
 }
 
 void test_print_categories(void) {
-  category_t *p = NULL;
+  stock_list_t *p = new_stock_list();
   add_category(&p);
   add_category(&p);
   add_category(&p);
@@ -56,7 +59,36 @@ void test_print_categories(void) {
   free_category(&p);
 }
 
-void print_categories_h(const char *pathname, category_t *p) {
+void test_add_and_del_categories(void) {
+  stock_list_t *p = new_stock_list();
+  add_category(&p);
+  add_category(&p);
+  add_category(&p);
+  add_category(&p);
+  add_category(&p);
+
+  const char *tmpfile = "tmpfile.dat";
+  char *got;
+
+  print_categories_h(tmpfile, p);
+  got = get_str_from_file(tmpfile);
+  remove(tmpfile);
+  TEST_ASSERT_EQUAL_STRING("1, 2, 3, 4, 5, \n", got);
+  free(got);
+
+  del_category(&p, 1);
+  add_category(&p);
+  add_category(&p);
+  print_categories_h(tmpfile, p);
+  got = get_str_from_file(tmpfile);
+  remove(tmpfile);
+  TEST_ASSERT_EQUAL_STRING("2, 3, 4, 5, 6, 7, \n", got);
+
+  free(got);
+  free_category(&p);
+}
+
+void print_categories_h(const char *pathname, stock_list_t *p) {
   FILE* f = fopen(pathname, "w+b");
   print_categories(f, p);
   fclose(f);
