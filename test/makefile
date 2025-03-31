@@ -6,7 +6,8 @@ OBJS      = $(OBJ_DIR)/product.o \
 			$(OBJ_DIR)/unity.o \
 			$(OBJ_DIR)/category.o \
 			$(OBJ_DIR)/category_test.o \
-			$(OBJ_DIR)/product_test.o
+			$(OBJ_DIR)/product_test.o \
+			$(OBJ_DIR)/helper.o
 INC_DIR   = ../inc
 SRC_DIR   = ../src
 UNITY_DIR = ../unity
@@ -31,12 +32,14 @@ $(OBJ_DIR)/unity.o: $(UNITY_DIR)/unity.c $(UNITY_DIR)/unity.h
 $(OBJ_DIR)/category.o: $(SRC_DIR)/category.c $(INC_DIR)/category.h
 	gcc -c $(CFLAGS) $(SRC_DIR)/category.c -o $(OBJ_DIR)/category.o
 
-$(OBJ_DIR)/category_test.o: category_test.c $(INC_DIR)/category.h $(UNITY_DIR)/unity.h
+$(OBJ_DIR)/category_test.o: category_test.c $(INC_DIR)/category.h $(INC_DIR)/helper.h $(UNITY_DIR)/unity.h
 	gcc -c $(CFLAGS) category_test.c -o $(OBJ_DIR)/category_test.o
 
-$(OBJ_DIR)/product_test.o: product_test.c $(INC_DIR)/product.h $(UNITY_DIR)/unity.h
+$(OBJ_DIR)/product_test.o: product_test.c $(INC_DIR)/product.h $(INC_DIR)/helper.h $(UNITY_DIR)/unity.h
 	gcc -c $(CFLAGS) product_test.c -o $(OBJ_DIR)/product_test.o
 
+$(OBJ_DIR)/helper.o: helper.c $(INC_DIR)/helper.h
+	gcc -c $(CFLAGS) helper.c -o $(OBJ_DIR)/helper.o
 .PHONY: clean
 clean:
 	rm -rf ../build/*
