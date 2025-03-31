@@ -48,3 +48,12 @@ int del_category(category_t **p, int id) {
   }
   return -1;
 }
+
+void print_categories(FILE *out, category_t *p) {
+  category_t *aux = p;
+  while ( aux != NULL ) {
+    fprintf(out, "%d, ", aux->id);
+    aux = aux->next;
+  }
+  fprintf(out, "\n");
+}
