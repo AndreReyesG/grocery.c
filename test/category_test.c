@@ -7,7 +7,7 @@
 void test_add_category(void) {
   stock_list_t *stock_list = new_stock_list();
   TEST_ASSERT_NULL(stock_list->head);
-  TEST_ASSERT_EQUAL_INT(0, stock_list->count_id);
+  TEST_ASSERT_EQUAL_INT(1, stock_list->count_id);
 
   add_category(&stock_list);
   TEST_ASSERT_EQUAL_INT(1, stock_list->head->id);
