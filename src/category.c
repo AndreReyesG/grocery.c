@@ -4,26 +4,23 @@
 stock_list_t *new_stock_list(void) {
   stock_list_t *new = (stock_list_t*)malloc(sizeof(stock_list_t));
   new->head = NULL;
-  new->count_id = 0;
+  new->count_id = 1;
   return new;
 }
 
 void add_category(stock_list_t **p) {
   category_t *new = (category_t*)malloc(sizeof(category_t));
-  new->id = 1;
+  new->id = (*p)->count_id++;
   new->next = NULL;
 
   if ( (*p)->head == NULL ) {
     (*p)->head = new;
   } else {
-    int id = 2;
     category_t *aux = (*p)->head;
 
     while (aux->next != NULL) {
-      ++id;
       aux = aux->next;
     }
-    new->id = id;
     aux->next = new;
   }
 }
