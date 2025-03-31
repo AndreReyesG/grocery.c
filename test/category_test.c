@@ -1,5 +1,8 @@
 #include "category_test.h"
+#include "helper.h"
 #include "unity.h" 
+#include <string.h>
+#include <stdlib.h>
 
 void test_add_category(void) {
   category_t *p = NULL;
@@ -31,5 +34,34 @@ void test_del_category(void) {
   del = del_category(&p, 2);
   TEST_ASSERT_EQUAL_INT(-1, del);
 
+  free_category(&p);
+}
+
+void test_print_categories(void) {
+  category_t *p = NULL;
+  add_category(&p);
+  add_category(&p);
+  add_category(&p);
+
+  FILE *file;
+  file = fopen("test_1.txt", "w+b");
+  print_categories(file, p);
+  fclose(file);
+
+  file = fopen("test_1.txt", "r+b");
+
+  // Obtener tamaño del archivo
+  long file_size = fsize(file);
+
+  // Asignar memoria para almacenar el contenido del archivo
+  char *got = (char*)calloc(file_size + 1, sizeof(char));
+  fread(got, sizeof(char), file_size, file);
+  fclose(file);
+
+  // Comparar con la cadena esperada
+  TEST_ASSERT_EQUAL_STRING("1, 2, 3, \n", got);
+
+  // Liberar memoria
+  free(got);
   free_category(&p);
 }
