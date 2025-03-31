@@ -79,6 +79,14 @@ void test_add_and_del_categories(void) {
   print_categories_h(tmpfile, p);
   got = get_str_from_file(tmpfile);
   TEST_ASSERT_EQUAL_STRING("2, 3, 4, 5, 6, 7, \n", got);
+  free(got);
+
+  del_category(&p, 7);
+  add_category(&p);
+  add_category(&p);
+  print_categories_h(tmpfile, p);
+  got = get_str_from_file(tmpfile);
+  TEST_ASSERT_EQUAL_STRING("2, 3, 4, 5, 6, 8, 9, \n", got);
 
   free(got);
   free_category(&p);
